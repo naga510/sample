@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE-stdOut" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <!-- <pattern>[%cyan(%-18.18(%d{MM/dd HH:mm:ss.SSS}))][%green(%5.5thread)] %boldMagenta(%-1.-1level) [%cyan(%30.30(%logger{36}):%4.4(%line))]: %msg%n</pattern> -->
+            <pattern>[%-18.18(%d{MM/dd HH:mm:ss.SSS})][%5.5thread] %-1.-1level [%30.30(%logger{36}):%4.4(%line)] [%X{username}]: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE-stdErr" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <encoder>
+            <!-- <pattern>[%boldRed(%-18.18(%d{MM/dd HH:mm:ss.SSS}))][%boldRed(%5.5thread)] %boldRed(%-1.-1level) [%boldRed(%30.30(%logger{36}):%4.4(%line))]:%boldRed(%msg%n)</pattern>-->
+            <pattern>[%-18.18(%d{MM/dd HH:mm:ss.SSS})][%5.5thread] %-1.-1level [%30.30(%logger{36}):%4.4(%line)] [%X{username}]: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CACHE-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${catalina.base}/logs/cache.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>[%-18.18(%d{MM/dd HH:mm:ss.SSS})][%5.5thread] %-1.-1level [%30.30(%logger{36}):%4.4(%line)] [%X{username}]: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--<logger name="org.springframework.cache" level="info"/>-->
+    <!--<logger name="net.sf.ehcache" level="info"/>-->
+    <!--<logger name="org.apache.cxf.services" level="info" />-->
+    <!--<logger name="com.mg.mgo.web.util.LogBlacklistPrintStream" level="info" />-->
+
+    <logger name="cache" level="debug" additivity="false">
+        <appender-ref ref="CACHE-FILE"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE-stdOut"/>
+        <!--<appender-ref ref="FILE-springBoot"/>-->
+    </root>
+</configuration>
